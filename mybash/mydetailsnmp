@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Type the IP address"
+read IP
+snmpwalk -c public -v1 $IP >> /root/results/detail-snmp-$IP.txt && cat /root/results/detail-snmp-$IP.txt
+echo "ALSO YOU CAN USE THE SNMPENUM TOOL TO INVESTIGATE FURTHER"
+echo "mydetailsnmplin target-ip"
+echo "or"
+echo "mydetailsnmpwin target-ip"

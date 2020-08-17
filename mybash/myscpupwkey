@@ -1,0 +1,17 @@
+#!/bin/bash
+echo "scp -i /local/directory/keyfile /local/directory/file username@to_host:/remote/directory/file"
+echo "Enter the username"
+read username
+echo "Enter the hostname"
+read to_host
+echo "Enter the path to the KEY FILE (Exclude the file name)"
+read keypath
+echo "Enter the KEY FILE NAME"
+read keyfile
+echo "Enter the local path (Exclude the file name)"
+read lpath
+echo "Enter the file name"
+read file
+echo "Enter the remote path to the file in victim (Exclude the file name)"
+read rpath
+echo "scp" -i $keypath/$keyfile $lpath/$file $username@$to_host:$rpath/$file

@@ -1,0 +1,5 @@
+#!/bin/bash
+echo		---------- 
+echo "Usage: mymapfinger targethostip targetport(79)"
+echo		----------
+nmap -p $2 --script=finger -vv $1 -oN /root/results/finger-result-$1.txt && cat /root/results/finger-result-$1.txt

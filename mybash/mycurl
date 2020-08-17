@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Usage: mycurl ipaddress"
+/usr/bin/curl -vvv $1

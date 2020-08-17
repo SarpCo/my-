@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Type the protocol (http or https)"
+read protocol
+echo "Enter the domain/ip you want to get a wordlist from"
+read targetip
+echo "Enter the file name you want the found emails to be written"
+read file
+cewl -d 3 -n -e --email_file $file $protocol://$targetip
+echo "Found email addresses"
+cat $file

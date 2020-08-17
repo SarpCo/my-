@@ -1,0 +1,5 @@
+#!/bin/bash
+echo		---------- 
+echo "Usage: mymapsmb targethostip targetports(139,445)"
+echo		----------
+nmap -p $2 --script=smb-os-discovery,smb-enum-shares,smb-mbenum,smb-vuln-cve-2017-7494,smb-vuln-cve2009-3103,smb-vuln-ms06-025,smb-vuln-ms07-029,smb-vuln-ms08-067,smb-vuln-ms10-054,smb-vuln-ms10-061,smb-vuln-ms17-010 -vv $1 -oN /root/results/smb-result-$1.txt && cat /root/results/smb-result-$1.txt && echo "------RELATED TOOLS: ENUM4LINUX,SMBCLIENT,NBTSCAN,NMBLOOKUP,RPCCLIENT,SMBMAP,METASPLOIT------"

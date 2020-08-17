@@ -1,0 +1,4 @@
+echo "Usage: myclip full/file/path"
+echo "Ex: myclip /etc/passwd"
+echo "Tip: You can use Ctrl+Shift+V to paste"
+cat $1 | xclip -selection clipboard

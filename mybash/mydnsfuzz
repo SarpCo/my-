@@ -1,0 +1,28 @@
+#!/bin/bash
+#myip=$(ifconfig  | grep destination | awk '{print $2}')
+echo "Enter the protocol (http - https)"
+read protocol
+echo "Enter the domain name"
+read targetip
+echo "Enter the file name you wish to use for cewl"
+read file
+curlicin='"'"Host: nonexistent."$targetip'"'
+echo $curlicin "will be used to capture false positive response size"
+curl -s -H $curlicin http://$targetip |wc -w &&
+rsize=$(curl -s -H $curlicin http://$targetip |wc -w) &&
+wfuzzicin="'""Host: FUZZ."$targetip"'"
+wfuzziki="'"$protocol"://"$targetip"'" &&
+cewl -d 3 -m 3 -w $file http://$targetip &&
+tr A-Z a-z < $file > $file"lowercase.txt" &&
+tr a-z A-Z < $file > $file"uppercase.txt" &&
+cat $file"uppercase.txt" > cewl-final-$file &&
+cat $file"lowercase.txt" >> cewl-final-$file &&
+cat $file >> cewl-final-$file &&
+cat /usr/share/seclists/Discovery/DNS/subdomains-top1mil-20000.txt >> cewl-final-$file &&
+cat cewl-final-$file &&
+echo "Total words generated from "$targetip
+totalwords=$(cat cewl-final-$file | wc -w)
+echo $totalwords
+#ffuf -c -w /usr/share/seclists/Discovery/DNS/subdomains-top1mil-20000.txt -u http://$target -H $ffuficin -fs $rsize
+echo "You can write down the command to start DNS fuzzing"
+echo wfuzz -c -w cewl-final-$file -t 100 -H $wfuzzicin --hw $rsize $wfuzziki

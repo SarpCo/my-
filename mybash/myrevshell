@@ -1,0 +1,11 @@
+#!/bin/bash
+cat /root/mybash/myrevshelltext2 > /root/mybash/myrevshelltext
+echo ""
+echo "Enter the attacker's listener port #"
+read port
+echo ""
+myip=$(ifconfig tun0 | grep netmask | awk '{print $2}')
+sed -i 's/attacker-ip/'$myip'/g' /root/mybash/myrevshelltext
+sed -i 's/attacker-port/'$port'/g' /root/mybash/myrevshelltext
+cat /root/mybash/myrevshelltext
+echo ""

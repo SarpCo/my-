@@ -1,0 +1,2 @@
+#!/bin/bash
+nmap -sS $1 --open -oN /root/results/first-glance-$1.txt && cat /root/results/first-glance-$1.txt && nmap -O -sV $1 -oN /root/results/os-version-$1.txt && cat /root/results/os-version-$1.txt && nmap -sS -p 1-65535 $1 -T4 --open -oN /root/results/open-ports-$1.txt && cat /root/results/open-ports-$1.txt && masscan -p1-65535,U:1-65535 $1 --rate=500 -e tun0 >> /root/results/open-ports-$1.txt && echo "hola" && nmap -sU -p 53,161 $1 --open >> /root/results/open-ports-$1.txt && cat /root/results/open-ports-$1.txt

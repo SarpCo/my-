@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "Please enter the password"
+echo ""
+read passwd
+echo ""
+echo "Please enter the path to new php file"
+echo "Ex- /root/inventory/myweevely.php"
+read filepath
+echo ""
+echo "Your file is being prepared"
+weevely generate $passwd $filepath && echo "Your file is at" && echo "" && echo $filepath
+

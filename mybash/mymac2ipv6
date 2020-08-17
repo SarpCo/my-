@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Enter the mac address"
+read mac
+curl -i -s -k  -X $'GET'     -H $'Host: ben.akrin.com' -H $'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0' -H $'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H $'Accept-Language: en-US,en;q=0.5' -H $'Accept-Encoding: gzip, deflate' -H $'DNT: 1' -H $'Connection: close' -H $'Upgrade-Insecure-Requests: 1' -H $'Cache-Control: max-age=0'     $'https://ben.akrin.com/ipv6_mac_address_to_link_local_converter/?mode=api&mac='$mac | grep ::
+

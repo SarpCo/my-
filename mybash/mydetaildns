@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Usage: mydetaildns target-ip"
+dnsenum --enum -r -f --dnsserver $1 > /root/results/detail-dns-$1.txt && cat detail-dns-$1.txt

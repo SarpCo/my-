@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Usage: mypatternoff theEIPvalueatthecrashtime"
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q $1

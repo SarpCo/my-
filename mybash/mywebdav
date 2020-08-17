@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Usage: 1- Enter the ip 2- Enter the path to your file to upload"
+echo "IP"
+read IP
+echo "Path to the file to be uploaded"
+read FILE
+echo "Starting the process.."
+davtest -url http://$IP/  -uploadloc test -uploadfile $FILE

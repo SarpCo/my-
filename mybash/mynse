@@ -1,0 +1,3 @@
+echo "Usage:mynse servicename"
+echo "Ex:mynse ldap" 
+locate -r nse$ | grep -i $1

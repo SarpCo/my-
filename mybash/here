@@ -1,0 +1,4 @@
+#!/bin/bash
+pwd > /dev/shm/here.txt
+here=$(cat /dev/shm/here.txt)
+nautilus $here

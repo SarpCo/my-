@@ -1,0 +1,13 @@
+#!/bin/bash
+echo "Type the protocol (http or https)"
+read protocol
+echo ""
+echo "Enter Target Ip or Domain name"
+read targetip
+echo "Target Ip Set To =" $targetip
+echo ""
+echo "Enter Target Port"
+read targetport
+echo "Target Port Set To =" $targetport
+echo "Nikto is doing its thing on" $protocol://$targetip:$targetport
+nikto -h $protocol://$targetip:$targetport -o /root/results/nikto-results-$targetip:$targetport.txt && cat /root/results/nikto-results-$targetip:$targetport.txt

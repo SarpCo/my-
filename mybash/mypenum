@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Usage: mypenum domain/ip"
+echo "https://www.easycounter.com/report/$1"
+echo "https://www.ssllabs.com/ssltest/analyze.html?d=$1&hideResults=on"
+echo "https://www.shodan.io/search?query=$1"

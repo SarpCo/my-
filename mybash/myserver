@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Usage: myserver p#"
+echo "Will serve on $1"
+python -m SimpleHTTPServer $1

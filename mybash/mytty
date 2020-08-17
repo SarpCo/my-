@@ -1,0 +1,4 @@
+#!/bin/bash
+echo ""
+cat /root/mybash/tty
+echo ""

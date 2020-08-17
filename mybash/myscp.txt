@@ -1,0 +1,20 @@
+SCP EXAMPLES
+
+Copy file from a REMOTE host to LOCAL host SCP example (DOWNLOAD FILE):
+scp username@from_host:/remote/directory/file /local/directory/file
+
+Copy file from LOCAL host to a REMOTE host SCP example (UPLOAD FILE):
+scp /local/directory/file username@to_host:/remote/directory/file
+
+Copy Directory from a REMOTE host to LOCAL host SCP example (DOWNLOAD DIR):
+scp -r username@from_host:/remote/directory/  /local/directory/
+
+Copy Directory from LOCAL host to a REMOTE host SCP example (UPLOAD DIR) :
+scp -r /local/directory/ username@to_host:/remote/directory/
+
+Copy file from remote host to remote host SCP example (REMOTE TO REMOTE):
+scp username@from_host:/remote/directory/file username@to_host:/remote/directory/file
+
+NOTE:You can use the myscpup and myscpdown scripts as well !!!
+
+
